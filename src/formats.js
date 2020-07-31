@@ -1,8 +1,7 @@
-export function listFormat({ year, title, role }) {
-  return `<li>${year} ${title}</li>`;
-}
+export const listFormat = ({ year, title, role }) =>
+  `<li>${year} ${title}</li>`;
 
-export function infoFormat({ name, birthDay, description }) {
+export const infoFormat = ({ name, birthDay, description }) => {
   const sep = "------------------------------------";
   return `${sep}
 Имя Фамилия
@@ -43,4 +42,4 @@ ${sep}
 работы в кино
 ${sep}
 `;
-}
+};
