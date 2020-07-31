@@ -1,0 +1,8 @@
+{
+  "plugins": ["prettier"],
+  "extends": ["prettier"],
+  "extends": "@isaac.frontend/eslint-config-es6",
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
