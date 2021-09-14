@@ -7,6 +7,10 @@
     "@vaskes79/add-actor": "bin/add-actor",
     "add-actor": "bin/add-actor"
   },
+  "scripts": {
+    "dev:build": "tsc -w",
+    "dev": "concurrently npm:dev:*"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -22,9 +26,10 @@
   },
   "devDependencies": {
     "@isaac.frontend/eslint-config-es6": "^3.0.0",
-    "eslint": "^7.5.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.0.5"
+    "@types/node": "^16.9.1",
+    "concurrently": "^6.2.1",
+    "prettier": "^2.4.0",
+    "typescript": "^4.4.3"
   },
   "keywords": [
     "cli",
