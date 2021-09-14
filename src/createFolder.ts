@@ -7,6 +7,6 @@ export default async function createFolder(options: OptionsPrompt) {
   if (isExist) {
     return;
   } else {
-    fs.mkdirSync(dir,);
+    fs.mkdirSync(dir);
   }
 }

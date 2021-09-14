@@ -39,7 +39,9 @@ function parseArgumentsIntoOptions(rawArgs: string[]): Options {
   };
 }
 
-async function promptForMissingOptions(options: Options) {
+async function promptForMissingOptions(
+  options: Options
+): Promise<OptionsPrompt> {
   const questions = [];
 
   if (!options.id) {
@@ -86,7 +88,7 @@ async function promptForMissingOptions(options: Options) {
 
 export async function cli(args: string[]) {
   let options = parseArgumentsIntoOptions(args);
-  options = await promptForMissingOptions(options);
-  await createFolder(options);
-  await parsePage(options);
+  let optionsPromt = await promptForMissingOptions(options);
+  await createFolder(optionsPromt);
+  await parsePage(optionsPromt);
 }

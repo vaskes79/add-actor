@@ -1,19 +1,20 @@
 import fs from "fs";
 import request from "needle";
-import tress from "tress";
-import cheerio from "cheerio";
+import tress, { TressJobData, TressWorkerDoneCallback } from "tress";
 import { parseActorBio, parseActorWorks } from "./parsers";
 import { listFormat, infoFormat } from "./formats";
+import { OptionsPrompt } from "./cli";
 
-function init({ url, parser }, callback) {
-  request.get(url, function (err, res) {
-    if (err) throw err;
-    const data = parser(res.body);
-    callback(data);
-  });
+async function init(
+  { url, parser }: TressJobData,
+  callback: TressWorkerDoneCallback
+) {
+  const res = await request.get(url);
+  const data = parser(res);
+  callback(data);
 }
 
-export default async function parsePage(options) {
+export default async function parsePage(options: OptionsPrompt) {
   const { id, name, dir } = options;
   const URL_SERV = `https://www.kino-teatr.ru/kino/acter/m/ros`;
   const URL_WORKS = `${URL_SERV}/${id}/works/`;
