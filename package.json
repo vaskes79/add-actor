@@ -20,12 +20,12 @@
     "esm": "^3.2.25",
     "inquirer": "^7.3.3",
     "needle": "^2.5.0",
-    "translit": "^0.1.0",
-    "translit-russian": "^0.0.2",
+    "transliteration": "^2.2.0",
     "tress": "^1.1.4"
   },
   "devDependencies": {
     "@isaac.frontend/eslint-config-es6": "^3.0.0",
+    "@types/inquirer": "^8.1.1",
     "@types/node": "^16.9.1",
     "concurrently": "^6.2.1",
     "prettier": "^2.4.0",

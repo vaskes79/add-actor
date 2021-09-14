@@ -1,13 +1,16 @@
 import arg from "arg";
 import inquirer from "inquirer";
-import rus from "translit-russian";
-import translit from "translit";
+import { slugify } from "transliteration";
 import createFolder from "./createFolder";
 import parsePage from "./parsePage";
 
-const tr = translit(rus);
+interface Person {
+  id: string | undefined;
+  name: string | undefined;
+  gender: string | undefined;
+}
 
-function parseArgumentsIntoOptions(rawArgs) {
+function parseArgumentsIntoOptions(rawArgs: string[]): Person {
   const args = arg(
     {
       "--id": String,
@@ -30,7 +33,7 @@ function parseArgumentsIntoOptions(rawArgs) {
   };
 }
 
-async function promptForMissingOptions(options) {
+async function promptForMissingOptions(options: Person) {
   const questions = [];
 
   if (!options.id) {
@@ -64,7 +67,7 @@ async function promptForMissingOptions(options) {
 
   let name = options.name || answers.name;
   name = name.trim().replace(/[\n\t\b\s]+/, " ");
-  const dir = tr(name.replace(/\s/, "-"));
+  const dir = slugify(name);
 
   return {
     ...options,
@@ -75,7 +78,7 @@ async function promptForMissingOptions(options) {
   };
 }
 
-export async function cli(args) {
+export async function cli(args: string[]) {
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   await createFolder(options);
