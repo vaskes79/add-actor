@@ -4,13 +4,19 @@ import { slugify } from "transliteration";
 import createFolder from "./createFolder";
 import parsePage from "./parsePage";
 
-interface Person {
+export interface Options {
   id: string | undefined;
   name: string | undefined;
   gender: string | undefined;
 }
 
-function parseArgumentsIntoOptions(rawArgs: string[]): Person {
+export interface OptionsPrompt extends Options {
+  dir: string;
+  id: string | undefined;
+  gender: string | undefined;
+}
+
+function parseArgumentsIntoOptions(rawArgs: string[]): Options {
   const args = arg(
     {
       "--id": String,
@@ -33,7 +39,7 @@ function parseArgumentsIntoOptions(rawArgs: string[]): Person {
   };
 }
 
-async function promptForMissingOptions(options: Person) {
+async function promptForMissingOptions(options: Options) {
   const questions = [];
 
   if (!options.id) {
