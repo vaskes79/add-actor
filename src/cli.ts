@@ -42,7 +42,7 @@ function parseArgumentsIntoOptions(rawArgs: string[]): Options {
 async function promptForMissingOptions(
   options: Options
 ): Promise<OptionsPrompt> {
-  const questions = [];
+  const questions: inquirer.Question[] = [];
 
   if (!options.id) {
     questions.push({
@@ -66,6 +66,7 @@ async function promptForMissingOptions(
       type: "list",
       name: "gender",
       message: "you should change gender actor",
+      // https://levelup.gitconnected.com/create-your-own-advanced-cli-with-typescript-5868ae3df397
       choices: ["female", "man"],
       default: "female",
     });
