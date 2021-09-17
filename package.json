@@ -9,7 +9,10 @@
   },
   "scripts": {
     "dev:build": "tsc -w",
-    "dev": "concurrently npm:dev:*"
+    "dev": "concurrently npm:dev:*",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "build": "tsc"
   },
   "publishConfig": {
     "access": "public"

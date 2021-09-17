@@ -1,16 +1,12 @@
 import { CliOptions } from "../Cli";
+// import fs from "fs";
+// import request from "needle";
+// import tress, { TressJobData, TressWorkerDoneCallback } from "tress";
 
 export class Parser {
   async parsePage(data: CliOptions): Promise<void> {
     console.log(data);
   }
-
-  // import fs from "fs";
-  // import request from "needle";
-  // import tress, { TressJobData, TressWorkerDoneCallback } from "tress";
-  // import { parseActorBio, parseActorWorks } from "./parsers";
-  // import { listFormat, infoFormat } from "./formats";
-  // import { OptionsPrompt } from "./cli";
 
   // async function init(
   //   { url, parser }: TressJobData,

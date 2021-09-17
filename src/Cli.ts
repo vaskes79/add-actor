@@ -45,9 +45,7 @@ export class Cli {
     this.grabOptions(args);
     this.prompt.createQuestions(this.data);
     this.data = await this.prompt.dialog();
-    if (this.data.dir) {
-      await this.files.createFolder(this.data.dir);
-      await this.parser.parsePage(this.data);
-    }
+    await this.files.createFolder(this.data.dir!);
+    await this.parser.parsePage(this.data);
   }
 }
