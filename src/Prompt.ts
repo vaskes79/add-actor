@@ -5,12 +5,16 @@ import { CliOptions } from "./cli";
 export class Prompt {
   private questions: QuestionCollection[] = [];
 
-  async dialog(): Promise<void> {
+  async dialog(): Promise<CliOptions> {
     const answers = await inquirer.prompt<Promise<CliOptions>>(this.questions);
-    if (!answers.dir && answers.name) {
-      answers["dir"] = slugify(answers.name);
+    let { dir, name } = answers;
+    if (!dir && name) {
+      name = name.trim().replace(/[\n\t\b\s]+/, " ");
+      answers["name"] = name;
+      answers["dir"] = slugify(name);
     }
-    console.log("answers", answers);
+
+    return answers;
   }
 
   createQuestions(opt: CliOptions): void {
@@ -39,21 +43,6 @@ export class Prompt {
       });
     }
   }
-
-  //   const answers = await inquirer.prompt(questions);
-
-  //   let name = options.name || answers.name;
-  //   name = name.trim().replace(/[\n\t\b\s]+/, " ");
-  //   const dir = slugify(name);
-
-  //   return {
-  //     ...options,
-  //     name,
-  //     dir,
-  //     id: options.id || answers.id,
-  //     gender: options.gender || answers.gender,
-  //   };
-  // }
 }
 // import createFolder from "./createFolder";
 // import parsePage from "./parsePage";

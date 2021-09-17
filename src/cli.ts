@@ -37,10 +37,11 @@ export class Cli {
     };
   }
 
-  cli(args: string[]) {
+  async cli(args: string[]) {
     this.grabOptions(args);
     this.prompt.createQuestions(this.data);
-    this.prompt.dialog();
+    this.data = await this.prompt.dialog();
+    console.log(this.data);
     //   await createFolder(optionsPromt);
     //   await parsePage(optionsPromt);
   }
