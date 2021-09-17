@@ -1,4 +1,5 @@
 import arg from "arg";
+import { Files } from "./Files";
 import { Prompt } from "./Prompt";
 
 export interface CliOptions {
@@ -11,6 +12,7 @@ export interface CliOptions {
 export class Cli {
   data: CliOptions = {};
   prompt: Prompt = new Prompt();
+  files: Files = new Files();
 
   grabOptions(rawArgs: string[]): void {
     const args = arg(
@@ -41,8 +43,9 @@ export class Cli {
     this.grabOptions(args);
     this.prompt.createQuestions(this.data);
     this.data = await this.prompt.dialog();
-    console.log(this.data);
-    //   await createFolder(optionsPromt);
+    if (this.data.dir) {
+      await this.files.createFolder(this.data.dir);
+    }
     //   await parsePage(optionsPromt);
   }
 }
