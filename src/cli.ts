@@ -1,13 +1,16 @@
 import arg from "arg";
 
-export interface Options {
-  id: string | undefined;
-  name: string | undefined;
-  gender: string | undefined;
+export interface CliOptions {
+  id?: string | undefined;
+  name?: string | undefined;
+  gender?: string | undefined;
+  dir?: string;
 }
 
 export class Cli {
-  parseOptions(rawArgs: string[]): Options {
+  data: CliOptions = {};
+
+  grabOptions(rawArgs: string[]): void {
     const args = arg(
       {
         "--id": String,
@@ -17,22 +20,27 @@ export class Cli {
         "-i": "--id",
         "-g": "--gender",
         "-n": "--name",
+        "-d": "--dir",
       },
       {
         argv: rawArgs.slice(2),
       }
     );
 
-    return {
+    this.data = {
       id: args["--id"],
       name: args["--name"],
       gender: args["--gender"],
+      dir: args["--dir"],
     };
   }
 
   cli(args: string[]) {
-    let options = this.parseOptions(args);
-    console.log(options);
+    this.grabOptions(args);
+    console.log(this.data);
+    //   let optionsPromt = await promptForMissingOptions(options);
+    //   await createFolder(optionsPromt);
+    //   await parsePage(optionsPromt);
   }
 }
 
@@ -41,12 +49,6 @@ export class Cli {
 // import { slugify } from "transliteration";
 // import createFolder from "./createFolder";
 // import parsePage from "./parsePage";
-
-// export interface OptionsPrompt extends Options {
-//   dir: string;
-//   id: string | undefined;
-//   gender: string | undefined;
-// }
 
 // async function promptForMissingOptions(
 //   options: Options
@@ -94,11 +96,4 @@ export class Cli {
 //     id: options.id || answers.id,
 //     gender: options.gender || answers.gender,
 //   };
-// }
-
-// export async function cli(args: string[]) {
-//   let options = parseArgumentsIntoOptions(args);
-//   let optionsPromt = await promptForMissingOptions(options);
-//   await createFolder(optionsPromt);
-//   await parsePage(optionsPromt);
 // }
