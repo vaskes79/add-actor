@@ -1,5 +1,6 @@
 import arg from "arg";
 import { Files } from "./Files";
+import { Parser } from "./parser/Parser";
 import { Prompt } from "./Prompt";
 
 export interface CliOptions {
@@ -13,6 +14,7 @@ export class Cli {
   data: CliOptions = {};
   prompt: Prompt = new Prompt();
   files: Files = new Files();
+  parser: Parser = new Parser();
 
   grabOptions(rawArgs: string[]): void {
     const args = arg(
@@ -45,7 +47,7 @@ export class Cli {
     this.data = await this.prompt.dialog();
     if (this.data.dir) {
       await this.files.createFolder(this.data.dir);
+      await this.parser.parsePage(this.data);
     }
-    //   await parsePage(optionsPromt);
   }
 }

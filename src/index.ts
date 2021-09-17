@@ -1,3 +1,3 @@
-import { Cli } from "./cli";
+import { Cli } from "./Cli";
 
 export const addActor = new Cli();
