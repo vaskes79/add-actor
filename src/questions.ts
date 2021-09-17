@@ -1,4 +1,4 @@
-import { Question } from "inquirer";
+import { Question, ChoiceCollection } from "inquirer";
 
 export const questions: Question[] = [
   {
@@ -16,7 +16,17 @@ export const questions: Question[] = [
     type: "list",
     name: "gender",
     message: "you should change gender actor",
-    choices: ["female", "man"],
     default: "female",
+  },
+];
+
+export const chosesGender: ChoiceCollection = [
+  {
+    name: "Female",
+    value: "female",
+  },
+  {
+    name: "Man",
+    value: "man",
   },
 ];

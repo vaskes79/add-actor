@@ -1,11 +1,15 @@
-import inquirer, { Question } from "inquirer";
+import inquirer, { QuestionCollection } from "inquirer";
+import { slugify } from "transliteration";
 import { CliOptions } from "./cli";
 
 export class Prompt {
-  private questions: Question[] = [];
+  private questions: QuestionCollection[] = [];
 
   async dialog(): Promise<void> {
-    const answers = await inquirer.prompt(this.questions);
+    const answers = await inquirer.prompt<Promise<CliOptions>>(this.questions);
+    if (!answers.dir && answers.name) {
+      answers["dir"] = slugify(answers.name);
+    }
     console.log("answers", answers);
   }
 
@@ -25,10 +29,15 @@ export class Prompt {
         message: "you should set name actor",
       });
     }
-    //   if (!options.gender) {
-    //     questions.push({
-    //     });
-    //   }
+    if (!opt.gender) {
+      this.questions.push({
+        type: "list",
+        name: "gender",
+        message: "you should change gender actor",
+        choices: ["female", "male"],
+        default: "female",
+      });
+    }
   }
 
   //   const answers = await inquirer.prompt(questions);
@@ -46,7 +55,6 @@ export class Prompt {
   //   };
   // }
 }
-// import { slugify } from "transliteration";
 // import createFolder from "./createFolder";
 // import parsePage from "./parsePage";
 

@@ -41,7 +41,6 @@ export class Cli {
     this.grabOptions(args);
     this.prompt.createQuestions(this.data);
     this.prompt.dialog();
-    //   let optionsPromt = await promptForMissingOptions(options);
     //   await createFolder(optionsPromt);
     //   await parsePage(optionsPromt);
   }
